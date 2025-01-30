@@ -4,7 +4,7 @@
 #include "hardware/clocks.h"
 #include "ws2818b.pio.h"
 
-#define LED_COUNT 25
+#define LED_COUNT 25 // Número de Leds na matriz 5x5
 
 // Buffer de pixels global
 static npLED_t leds[LED_COUNT];
@@ -32,6 +32,8 @@ void npInit(uint8_t pin)
     npClear();
 }
 
+// Função que seta, basicamente atribui uma cor a cada pino correspondente da matriz da placa
+
 void setMatrizDeLEDSComIntensidade(int matriz[5][5][3], double intensidadeR, double intensidadeG, double intensidadeB)
 {
     // Validação das intensidades
@@ -58,7 +60,7 @@ void setMatrizDeLEDSComIntensidade(int matriz[5][5][3], double intensidadeR, dou
         }
     }
 
-    npWrite();
+    npWrite(); // Função para ligar os leds setados.
 }
 
 void npWrite()
@@ -70,8 +72,10 @@ void npWrite()
         pio_sm_put_blocking(np_pio, sm, leds[i].R);
         pio_sm_put_blocking(np_pio, sm, leds[i].B);
     }
-   
 }
+
+// Função para desligar os leds
+
 void npClear()
 {
     for (uint i = 0; i < LED_COUNT; ++i)
@@ -83,6 +87,8 @@ void npClear()
 
     npWrite();
 }
+
+// Função para obter a posição correta na matriz 5x5.
 
 int getIndex(int x, int y)
 {
