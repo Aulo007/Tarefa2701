@@ -19,7 +19,7 @@ set(sdkVersion 2.1.0)
 set(toolchainVersion 13_3_Rel1)
 set(picotoolVersion 2.1.0)
 set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
-if (EXISTS ${picoVscode})
+if(EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
@@ -28,35 +28,36 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(Tarefa2701 C CXX ASM)
+project(main C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(Tarefa2701 Tarefa2701.c )
+add_executable(main main.c desenho.c matrizRGB.c)
 
-pico_set_program_name(Tarefa2701 "Tarefa2701")
-pico_set_program_version(Tarefa2701 "0.1")
+pico_set_program_name(main "main")
+pico_set_program_version(main "0.1")
+
+pico_generate_pio_header(main ${CMAKE_CURRENT_LIST_DIR}/ws2818b.pio)
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(Tarefa2701 0)
-pico_enable_stdio_usb(Tarefa2701 0)
-
-# Add the standard library to the build
-target_link_libraries(Tarefa2701
-        pico_stdlib)
+pico_enable_stdio_uart(main 1)
+pico_enable_stdio_usb(main 1)
 
 # Add the standard include files to the build
-target_include_directories(Tarefa2701 PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
+target_include_directories(main PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(Tarefa2701 
-        
-        )
+target_link_libraries(main
+    hardware_pio
+    hardware_clocks
+    hardware_gpio  
+    pico_stdlib
+)
 
-pico_add_extra_outputs(Tarefa2701)
+pico_add_extra_outputs(main)
 
