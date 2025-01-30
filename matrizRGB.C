@@ -70,7 +70,7 @@ void npWrite()
         pio_sm_put_blocking(np_pio, sm, leds[i].R);
         pio_sm_put_blocking(np_pio, sm, leds[i].B);
     }
-    sleep_us(100); // Espera 100us, sinal de RESET do datasheet.
+   
 }
 void npClear()
 {

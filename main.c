@@ -12,7 +12,7 @@ const uint BUTTON2_PIN = 6; // Define o botão 2 como pino 6
 
 volatile int num; // Variável global para definir qual número selecionar na matriz
 
-void gpio_irq_handle(uint gpio, uint32_t events);
+static void gpio_irq_handle(uint gpio, uint32_t events);
 
 int main()
 {
@@ -41,13 +41,14 @@ int main()
 
     // Escreve o número inicial a ser exibido na matriz de Leds, neste caso o número 0.
 
-    num = 0; // inicializa o valor da variável volátil como 0
+    num = 5; // inicializa o valor da variável volátil como 5
 
-    // Escreve o primeiro número inicial na matriz de leds 5x5, neste caso o 0.
-    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1, 1, 1);
+    // Escreve o primeiro número inicial na matriz de leds 5x5, neste caso o 5.
+    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.1, 0.1, 0.1);
 
     // Configuração da interrupção com o callback
     gpio_set_irq_enabled_with_callback(BUTTON1_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handle);
+    gpio_set_irq_enabled_with_callback(BUTTON2_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handle);
 
     // Loop principal
 
@@ -57,10 +58,13 @@ int main()
         gpio_put(LED_RED_PIN, true);
         sleep_ms(200);
         gpio_put(LED_RED_PIN, false);
+        sleep_ms(200);
+
+        printf("Botão 1: %d \n", gpio_get(LED_RED_PIN));
     }
 }
 
-void gpio_irq_handle(uint gpio, uint32_t events)
+static void gpio_irq_handle(uint gpio, uint32_t events)
 {
     if (num >= 0 && num <= 9)
     {
@@ -78,6 +82,6 @@ void gpio_irq_handle(uint gpio, uint32_t events)
             num = (num > 0) ? num - 1 : 0;
         }
 
-        setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1, 1, 1);
+        setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.1, 0.1, 0.1);
     }
 }
