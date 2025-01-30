@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "matrizRGB.h"
+#include "desenho.h"
 
 // Configuração dos pinos
 
@@ -8,6 +9,14 @@ const uint LED_RED_PIN = 13; // Green = 11, Blue = 12 and Red = 13
 
 const uint BUTTON1_PIN = 5; // Define o botão 1 como pino 5
 const uint BUTTON2_PIN = 6; // Define o botão 2 como pino 6
+
+const uint MATRIZ5X5_PIN = 7;
+
+const int num; // Variável global para definir qual número selecionar na matriz
+
+void button1_irq_handler()
+{
+}
 
 int main()
 {
@@ -17,6 +26,10 @@ int main()
     gpio_init(LED_RED_PIN);
     gpio_init(BUTTON1_PIN);
     gpio_init(BUTTON2_PIN);
+
+    // Inicializa os pinos da matriz de Leds no pino definido
+
+    npInit(MATRIZ5X5_PIN);
 
     // Confira direção dos pinos (Entrada ou saída)
 
@@ -30,10 +43,12 @@ int main()
     gpio_pull_up(BUTTON1_PIN);
     gpio_pull_up(BUTTON2_PIN);
 
+    // Chama o número inicial a ser exibido na matriz de Leds, neste caso o número 0.
+
+    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1.0, 1.0, 1.0);
+
     while (true)
     {
-
-
 
         printf("Hello, world!\n");
         sleep_ms(1000);
