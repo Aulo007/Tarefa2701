@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "matrizRGB.h"
 
 // Configuração dos pinos
 
@@ -33,7 +34,7 @@ int main()
     {
 
 
-        
+
         printf("Hello, world!\n");
         sleep_ms(1000);
     }

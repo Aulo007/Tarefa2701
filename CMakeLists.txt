@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(Tarefa2701 Tarefa2701.c matrizRGB.C)
+add_executable(Tarefa2701 Tarefa2701.c matrizRGB.C desenho.c)
 
 pico_set_program_name(Tarefa2701 "Tarefa2701")
 pico_set_program_version(Tarefa2701 "0.1")
