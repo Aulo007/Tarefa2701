@@ -56,9 +56,9 @@ int main()
     {
 
         gpio_put(LED_RED_PIN, true);
-        sleep_ms(200);
+        sleep_ms(100);
         gpio_put(LED_RED_PIN, false);
-        sleep_ms(200);
+        sleep_ms(100);
 
         printf("Botão 1: %d \n", gpio_get(LED_RED_PIN));
     }
