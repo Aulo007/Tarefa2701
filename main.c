@@ -10,7 +10,9 @@ const uint LED_RED_PIN = 13; // Green = 11, Blue = 12 and Red = 13
 const uint BUTTON1_PIN = 5; // Define o botão 1 como pino 5
 const uint BUTTON2_PIN = 6; // Define o botão 2 como pino 6
 
-const int num = 0; // Variável global para definir qual número selecionar na matriz
+volatile int num; // Variável global para definir qual número selecionar na matriz
+
+void gpio_irq_handle(uint gpio, uint32_t events);
 
 int main()
 {
@@ -39,12 +41,43 @@ int main()
 
     // Escreve o número inicial a ser exibido na matriz de Leds, neste caso o número 0.
 
+    num = 0; // inicializa o valor da variável volátil como 0
+
+    // Escreve o primeiro número inicial na matriz de leds 5x5, neste caso o 0.
     setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1, 1, 1);
+
+    // Configuração da interrupção com o callback
+    gpio_set_irq_enabled_with_callback(BUTTON1_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handle);
+
+    // Loop principal
 
     while (true)
     {
 
-        printf("Hello, world!\n");
-        sleep_ms(1000);
+        gpio_put(LED_RED_PIN, true);
+        sleep_ms(200);
+        gpio_put(LED_RED_PIN, false);
+    }
+}
+
+void gpio_irq_handle(uint gpio, uint32_t events)
+{
+    if (num >= 0 && num <= 9)
+    {
+        if (gpio == BUTTON1_PIN)
+        {
+            /* Ternário (Condição ? valor se verdadeiro: valor se falso), atribui valor a variável volátil num
+               Se o número for menor que 9 ele incrementa o num em 1, se não, faz o valor permanecer em 9 */
+
+            num = (num < 9) ? num + 1 : 9;
+        }
+        else if (gpio == BUTTON2_PIN)
+        {
+            /* Ternário (Condição ? valor se verdadeiro: valor se falso), atribui valor a variável volátil num
+              Se o número for maior que 0 ele decrementa o num em 1, se não, faz o valor permanecer em 0 */
+            num = (num > 0) ? num - 1 : 0;
+        }
+
+        setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1, 1, 1);
     }
 }
