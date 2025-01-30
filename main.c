@@ -10,13 +10,7 @@ const uint LED_RED_PIN = 13; // Green = 11, Blue = 12 and Red = 13
 const uint BUTTON1_PIN = 5; // Define o botão 1 como pino 5
 const uint BUTTON2_PIN = 6; // Define o botão 2 como pino 6
 
-const uint MATRIZ5X5_PIN = 7;
-
-const int num; // Variável global para definir qual número selecionar na matriz
-
-void button1_irq_handler()
-{
-}
+const int num = 0; // Variável global para definir qual número selecionar na matriz
 
 int main()
 {
@@ -27,9 +21,9 @@ int main()
     gpio_init(BUTTON1_PIN);
     gpio_init(BUTTON2_PIN);
 
-    // Inicializa os pinos da matriz de Leds no pino definido
+    // Inicializa os pinos da matriz de Leds no pino 7
 
-    npInit(MATRIZ5X5_PIN);
+    npInit(7);
 
     // Confira direção dos pinos (Entrada ou saída)
 
@@ -43,9 +37,9 @@ int main()
     gpio_pull_up(BUTTON1_PIN);
     gpio_pull_up(BUTTON2_PIN);
 
-    // Chama o número inicial a ser exibido na matriz de Leds, neste caso o número 0.
+    // Escreve o número inicial a ser exibido na matriz de Leds, neste caso o número 0.
 
-    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1.0, 1.0, 1.0);
+    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 1, 1, 1);
 
     while (true)
     {

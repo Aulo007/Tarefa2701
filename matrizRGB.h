@@ -8,7 +8,7 @@ typedef struct
     uint8_t G, R, B;
 } npLED_t;
 
-// Declaraão de funções
+// Declaração de funções
 
 void npInit(uint8_t pin);
 void npClear();

@@ -1,6 +1,6 @@
 [wokwi]
 version = 1
-firmware = 'build/Tarefa2701.uf2'
-elf = 'build/Tarefa2701.elf'
+firmware = 'build/main.uf2'
+elf = 'build/main.elf'
 
 
