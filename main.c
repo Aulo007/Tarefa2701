@@ -44,7 +44,7 @@ int main()
     gpio_pull_up(BUTTON1_PIN);
     gpio_pull_up(BUTTON2_PIN);
 
-    // Escreve o número inicial a ser exibido na matriz de Leds, neste caso o número 0.
+    // Escreve o número inicial a ser exibido na matriz de Leds, neste caso o número 5.
 
     num = 5; // inicializa o valor da variável volátil como 5
 
