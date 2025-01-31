@@ -49,7 +49,7 @@ int main()
     num = 5; // inicializa o valor da variável volátil como 5
 
     // Escreve o primeiro número inicial na matriz de leds 5x5, neste caso o 5.
-    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.1, 0.1, 0.1);
+    setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.007, 0.007, 0.007);
 
     // Configuração da interrupção com o callback
     gpio_set_irq_enabled_with_callback(BUTTON1_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handle);
@@ -101,7 +101,7 @@ static void gpio_irq_handle(uint gpio, uint32_t events)
             num2++;
 
             // Escreve desenho atual na plaquinha, os três parâmetro são sobre a intensidade, ou seja, neste caso 10%
-            setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.1, 0.1, 0.1);
+            setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.007, 0.007, 0.007);
         }
     }
 }
