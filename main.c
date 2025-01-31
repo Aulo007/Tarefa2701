@@ -100,7 +100,7 @@ static void gpio_irq_handle(uint gpio, uint32_t events)
             printf("O botão foi realmente apertado: %d \n", num2);
             num2++;
 
-            // Escreve desenho atual na plaquinha, os três parâmetro são sobre a intensidade, ou seja, neste caso 10%
+            // Escreve desenho atual na plaquinha, os três parâmetro são sobre a intensidade
             setMatrizDeLEDSComIntensidade(caixa_de_desenhos[num], 0.007, 0.007, 0.007);
         }
     }
